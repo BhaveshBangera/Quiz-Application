@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <button onclick="play()" id="start">Start</button>
+
+    <!-- <p>Time left: <span id="time">60</span> seconds.</p> -->
+    <!-- <p><a href="#" onclick="play()">Play</a> <a href="#" onclick="pause()">Pause</a></p> -->
+    <p id="demo"></p>
+
+    <hr/>
+
+    <div id="content" style="display: none;">
+
+
+      <p id="paratime">Time left: <span id="time">10</span> seconds.</p>
+      <hr />
+
+      <form action="{% url 'quiz:results' quiz_id=quiz_id %}" method="post">
+        {% csrf_token %}
+
+        <h1>List of Questions</h1>
+        <p>
+          {{ quiz_id }}
+        </p>
+        <hr />
+        {% for question in questions %}
+          <p>
+            {{ question.question_text }}
+          </p>
+          <ul>
+            {% for choice in question.choice_set.all %}
+                 <input type="radio" name="{{ question.id }}" id="{{ choice.id }}" value="{{ choice.choice_text }}">{{ choice.choice_text }}<br>
+            {% endfor %}
+          </ul>
+          <hr />
+        {% endfor %}
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+
+
+    <script>
+    $(document).ready(function(){
+      $("#start").click(function(){
+          $("#content").fadeIn(500);
+      });
+    });
+    </script>
+
+    <script>
+    var time = 60;
+    timeElement = document.getElementById('time');
+    timer = null;
+    var updateTimer = function() {
+      timeElement.innerHTML = time--;
+      if (time == 0) {
+      	clearInterval(timer);
+        document.getElementById('paratime').innerText = "Time Expired, Click on submit button below";
+        //var content = document.getElementById("content");
+        //content.style.display = "none";
+        //document.getElementById('content').disabled = true;
+        //document.getElementByName('option').disabled = true;
+        //$("#parent-selector :input").attr("disabled", true);
+        $("#content :input").attr("disabled", true);
+        document.getElementById('start').disabled = true;
+        //document.getElementById('demo').innerText = "Submit the form now";
+      }
+    }
+    function play() {
+    	timer = setInterval(updateTimer, 1000);
+    	return false;
+    }
+    // function pause() {
+    // 	clearInterval(timer);
+    // 	return false;
+    // }
+    </script>
+
+  </body>
+</html>

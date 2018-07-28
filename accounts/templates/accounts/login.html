@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <h3>Login Form</h3>
+      <hr>
+      <form class="" action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        {% if request.GET.next %}
+
+          <input type="hidden" name="next" value="{{ request.GET.next }}">
+
+        {% endif %}
+
+        <input type="submit" value="Login">
+        <br>
+        Not a Member?<a href="{% url 'accounts:signup' %}">Signup</a>
+
+        <!-- <button type="submit" class="btn btn-primary">Login</button> -->
+      </form>
+  </body>
+</html>
