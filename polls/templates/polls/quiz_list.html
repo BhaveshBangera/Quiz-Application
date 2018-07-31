@@ -1,29 +1,69 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>List of quizzes</h1>
-    <hr/>
-    <h3>Attempted Quiz</h3>
-    {% for quiz in attempt %}
-      <!-- <a href="{% url 'quiz:question_list' quiz_id=quiz.id %}"><p>{{ quiz.quiz_text }}</p></a> -->
-      <a href="{% url 'quiz:question_list' quiz_id=quiz.id %}"><p>{{ quiz.quiz_text }}</p></a>
-      <hr />
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+
+<div class="container">
+  <!-- quizdata.quizStatus -->
+
+  {% if content.attempt > 0 %}
+    <h3>Quizzes attempted by you</h3>
+    <hr>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Quiz Name</th>
+          <th scope="col">Correctly Answered</th>
+          <th scope="col">Total Questions</th>
+          <th scope="col">Percentage Gained</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quiz in content.attempt %}
+          <tr>
+            <td><p>{{ quiz.quiz }}</p></td>
+            <td><p>{{ quiz.totalCorrect }}</p></td>
+            <td><p>{{ quiz.totalQuestions }} </p></td>
+            <td><p>{{ quiz.percentage }}%</p></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- {{ content.quizInfo }} -->
+    <br />
+    <br>
+
+    <h3>Quizzes you can attempt</h3>
+    <hr>
+    {% for key, value in content.changedremdata.items %}
+    <a href="{% url 'quiz:question_list' quiz_id=key %}"><p>{{ value.0 }}</p></a>
+      <!-- <p>{{ key }}</p>
+      <p>{{ value.0 }}</p> -->
     {% endfor %}
-    <hr />
-    <h3>Un-Attempted Quiz</h3>
-    {% for quiz in remaining %}
-      <!-- <a href="{% url 'quiz:question_list' quiz_id=quiz.id %}"><p>{{ quiz.quiz_text }}</p></a> -->
+
+
+  {% else %}
+    <h3>List of Quizzes</h3>
+    <hr>
+    {% for quiz in content.quizzes %}
       <a href="{% url 'quiz:question_list' quiz_id=quiz.id %}"><p>{{ quiz.quiz_text }}</p></a>
-      <hr />
+      <br />
     {% endfor %}
-    <form action="{% url 'accounts:logout' %}" method="post">
-      {% csrf_token %}
-      <input type="submit" value="Logout">
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button> -->
-    </form>
-  </body>
-</html>
+    <hr>
+  {% endif %}
+
+
+
+
+  <form action="{% url 'accounts:logout' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+    <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button> -->
+  </form>
+</div>
+
+
+{% endblock %}

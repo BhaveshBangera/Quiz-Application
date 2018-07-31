@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-      <h3>Login Form</h3>
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"  id="loginbody">
+      <h3>Login here</h3>
       <hr>
       <form class="" action="{% url 'accounts:login' %}" method="post">
         {% csrf_token %}
@@ -18,11 +23,24 @@
 
         {% endif %}
 
-        <input type="submit" value="Login">
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary" id="loginbutton">Login</button>
+        </div>
+
+
+
+        <!-- <input type="submit" value="Login">
         <br>
-        Not a Member?<a href="{% url 'accounts:signup' %}">Signup</a>
+        Not a Member?<a href="{% url 'accounts:signup' %}">Signup</a> -->
 
         <!-- <button type="submit" class="btn btn-primary">Login</button> -->
       </form>
-  </body>
-</html>
+      <br>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+
+</div>
+
+
+{% endblock %}

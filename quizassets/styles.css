@@ -1,0 +1,16 @@
+.table th, td {
+   text-align: center;
+}
+
+#loginbody, #signupbody{
+  border: 1px solid grey;
+}
+
+#loginbutton, #signupbutton{
+  width: 40%;
+}
+
+.helptext{
+  visibility: hidden;
+  height: 0px;
+}

@@ -1,33 +1,56 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <div>
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8">
       <h1>Actual Answers</h1>
-      {% for question in questions %}
-      <p>Q{{ question.id }} - {{ question.question_text }}</p>
-      <p>Ans - {{ question.answer }}</p>
-      <hr>
-      {% endfor %}
+      <br>
+
+      <ul class="list-unstyled">
+        {% for question in questions %}
+        <li class="media">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">Q{{ question.id }} - {{ question.question_text }}</h5>
+            Ans - {{ question.answer }}
+          </div>
+        </li>
+        <br>
+        {% endfor %}
+      </ul>
+
     </div>
-    <div>
-      <h1>Your Answers</h1>
-      {% for key, value in newdata.items %}
-      <p>Q{{ key }} - {{ value }}</p>
-      <hr>
-      {% endfor %}
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Your Answers</h1>
+          {% for key, value in newdata.items %}
+          <p>Q{{ key }} - {{ value }}</p>
+          <hr>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Quiz Statistics</h1>
+          <p>Total Questions in the quiz:- {{ totalq }}</p>
+          <p>Questions attempted:- {{ answered }}</p>
+          <p>Questions Not-attempted:- {{ unanswered }}</p>
+          <p>Questions answered correctly:- {{ totalcorrect }}</p>
+          <p>Questions answered wrongly:- {{ totalwrong }}</p>
+          <p>Percentage:- {{ percentage }}%</p>
+        </div>
+      </div>
     </div>
-    <div>
-      <h1>Quiz Statistics</h1>
-      <p>Total Questions in the quiz:- {{ totalq }}</p>
-      <p>Questions attempted:- {{ answered }}</p>
-      <p>Questions Not-attempted:- {{ unanswered }}</p>
-      <p>Questions answered correctly:- {{ totalcorrect }}</p>
-      <p>Questions answered wrongly:- {{ totalwrong }}</p>
-      <p>Percentage:- {{ percentage }}%</p>
-    </div>
-  </body>
-</html>
+  </div>
+
+</div>
+
+
+{% endblock %}

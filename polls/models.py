@@ -17,9 +17,13 @@ class UserAttemptedQuiz(models.Model):
     quiz = models.ForeignKey(Quiz)
     user = models.ForeignKey(User)
     quizStatus = models.CharField(max_length=200)
+    totalCorrect = models.IntegerField(default=0)
+    totalQuestions = models.IntegerField(default=0)
+    percentage = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user,'',self.quizStatus,'',self.quiz
+        #return self.user,'',self.quizStatus,'',self.quiz
+        return self.quizStatus
 
 
 class Question(models.Model):

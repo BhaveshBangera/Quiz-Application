@@ -1,22 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h3>Signup Form</h3>
-    <hr>
-    <form class="" action="{% url 'accounts:signup' %}" method="post">
-      {% csrf_token %}
+{% extends 'base_layout.html' %}
 
-      {{ form.as_p }}
+{% block content %}
 
-      <input type="submit" value="Register">
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8" id="signupbody">
+      <h3>Register here</h3>
+      <hr>
+      <form class="" action="{% url 'accounts:signup' %}" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary" id="signupbutton">Register</button>
+        </div>
+
+        <!-- <input type="submit" value="Register">
+        <br>
+        Already Registered?<a href="{% url 'accounts:login' %}">Login</a> -->
+
+        <!-- <button type="submit" class="btn btn-primary">Signup</button> -->
+      </form>
       <br>
-      Already Registered?<a href="{% url 'accounts:login' %}">Login</a>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
 
-      <!-- <button type="submit" class="btn btn-primary">Signup</button> -->
-    </form>
-  </body>
-</html>
+</div>
+
+
+{% endblock %}
